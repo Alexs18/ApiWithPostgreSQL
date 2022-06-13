@@ -8,9 +8,18 @@ let {Pool} = require('pg');
         database: 'RegistroPractias',
         port:5432
     });
-    await pool.query('SELECT * FROM estudiantes', (err, res)=>{
-        console.log(res.rows)
-        console.log(err)
-    });
-    console.log('Hola')
+    /**Obtencion de todos los datos */
+    let result = await pool.query('SELECT * FROM estudiantes');
+    console.log(result.rows);
+
+    /**Creacion de un nuevo usuario */
+    //await pool.query('INSERT INTO estudiantes VALUES ($1, $2, $3)', [3, 'Linux', 'Server']);
+
+    /**Actualiza */
+    await pool.query('UPDATE Estudiantes SET Nombre = $1 WHERE Nombre = $2', ['Anthony', 'Karen']);
+
+    /**Elimina */
+    await pool.query('DELETE FROM Estudiantes WHERE Nombre = $1', ['Anthony'])
+
+
 })()
